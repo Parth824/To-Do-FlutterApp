@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,7 +63,11 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.symmetric(vertical: 10),
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
-                            color: bluisClr,
+                            color: (data1[index]['color'] == 0)
+                                ? bluisClr
+                                : (data1[index]['color'] == 1)
+                                    ? pinkClr
+                                    : yellowClr,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Container(
@@ -69,6 +75,7 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               children: [
                                 Expanded(
+                                  flex: 7,
                                   child: Container(
                                     child: Column(
                                       crossAxisAlignment:
@@ -123,11 +130,31 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
+                                // SizedBox(
+                                //   width: 10,
+                                // ),
                                 Expanded(
                                   child: Container(
-                                    height: 10,
-                                    width: 2,
-                                    color: Colors.white,
+                                    height: 80,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 80,
+                                          width: 0.5,
+                                          color: Colors.white,
+                                        ),
+                                        Transform.rotate(
+                                            angle: pi / 2,
+                                            child: Text(
+                                              "TODO",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                height: 3,
+                                                color: Colors.white,
+                                              ),
+                                            ))
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -213,9 +240,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           ButtonPage(
-              onTap: () => Get.to(
-                    AddTaskPage(),
-                  ),
+              onTap: () async {
+                await Get.to(
+                  AddTaskPage(),
+                );
+                setState(() {});
+              },
               label: "+ Add Task"),
         ],
       ),

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:to_do_app/controller/task_controller.dart';
 import 'package:to_do_app/models/task.dart';
 import 'package:to_do_app/view/pages/button.dart';
+import 'package:to_do_app/view/pages/homepage.dart';
 import 'package:to_do_app/view/pages/my_input_filde.dart';
 import '../../globle/theme.dart';
 
@@ -112,7 +113,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     ),
                   ],
                 ),
-                MyInputField( 
+                MyInputField(
                   title: "Remind",
                   hint: "$_selectedRemind minutes early",
                   widget: DropdownButton(
@@ -196,10 +197,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 
-  _validateData() async{
+  _validateData() async {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
-       _addTaskToDb();
-      Get.back();
+      _addTaskToDb();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ));
     } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
       Get.snackbar(
         "Required",
